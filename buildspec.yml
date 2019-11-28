@@ -19,10 +19,10 @@ phases:
       - echo Build started on `date`
       - echo Building the jar
       # Go to build dir for the java project
-      - cd service
+      - cd module-2/casapi/
       - mvn clean install
       # Go back to root folder
-      - cd ..
+      - cd ../..
       - echo Building the Docker image...
       - docker build -t casapi_ecr:latest .
       # Tag the built docker image using the appropriate Amazon ECR endpoint and relevant
