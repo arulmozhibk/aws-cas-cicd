@@ -24,7 +24,7 @@
               ],
               "configuration": {
                 "BranchName": "master",
-                "RepositoryName": "CasAPIService-Repository"
+                "RepositoryName": "cas-cicd-repo"
               },
               "runOrder": 1
             }
