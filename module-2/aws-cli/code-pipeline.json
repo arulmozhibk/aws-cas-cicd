@@ -1,0 +1,91 @@
+{
+  "pipeline": {
+      "name": "CasAPIServiceCICDPipeline",
+      "roleArn": "arn:aws:iam::950923400513:role/CasServiceCodePipelineServiceRole",
+      "stages": [
+        {
+          "name": "Source",
+          "actions": [
+            {
+              "inputArtifacts": [
+    
+              ],
+              "name": "Source",
+              "actionTypeId": {
+                "category": "Source",
+                "owner": "AWS",
+                "version": "1",
+                "provider": "CodeCommit"
+              },
+              "outputArtifacts": [
+                {
+                  "name": "CasAPIService-SourceArtifact"
+                }
+              ],
+              "configuration": {
+                "BranchName": "master",
+                "RepositoryName": "CasAPIService-Repository"
+              },
+              "runOrder": 1
+            }
+          ]
+        },
+        {
+          "name": "Build",
+          "actions": [
+            {
+              "name": "Build",
+              "actionTypeId": {
+                "category": "Build",
+                "owner": "AWS",
+                "version": "1",
+                "provider": "CodeBuild"
+              },
+              "outputArtifacts": [
+                {
+                  "name": "CasAPIService-BuildArtifact"
+                }
+              ],
+              "inputArtifacts": [
+                {
+                  "name": "CasAPIService-SourceArtifact"
+                }
+              ],
+              "configuration": {
+                "ProjectName": "CasAPIServiceCodeBuildProject"
+              },
+              "runOrder": 1
+            }
+          ]
+        },
+        {
+          "name": "Deploy",
+          "actions": [
+            {
+              "name": "Deploy",
+              "actionTypeId": {
+                "category": "Deploy",
+                "owner": "AWS",
+                "version": "1",
+                "provider": "ECS"
+              },
+              "inputArtifacts": [
+                {
+                  "name": "CasAPIService-BuildArtifact"
+                }
+              ],
+              "configuration": {
+                "ClusterName": "CasAPIService-Cluster",
+                "ServiceName": "CasAPI-Service",
+                "FileName": "imagedefinitions.json"
+              }
+            }
+          ]
+        }
+      ],
+      "artifactStore": {
+        "type": "S3",
+        "location": "cas-cicd"
+      }
+  }
+}

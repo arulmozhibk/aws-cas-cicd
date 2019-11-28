@@ -1,0 +1,27 @@
+{
+  "name": "CasAPIServiceCodeBuildProject",
+  "artifacts": {
+    "type": "no_artifacts"
+  },
+  "environment": {
+    "computeType": "BUILD_GENERAL1_SMALL",
+    "image": "aws/codebuild/java:openjdk-8",
+    "privilegedMode": true,
+    "environmentVariables": [
+      {
+        "name": "AWS_ACCOUNT_ID",
+        "value": "950923400513"
+      },
+      {
+        "name": "AWS_DEFAULT_REGION",
+        "value": "ap-southeast-1"
+      }
+    ],
+    "type": "LINUX_CONTAINER"
+  },
+  "serviceRole": "arn:aws:iam::950923400513:role/CasServiceCodeBuildServiceRole",
+  "source": {
+    "type": "CODECOMMIT",
+    "location": "https://git-codecommit.ap-southeast-1.amazonaws.com/v1/repos/cas-cicd-repo"
+  }
+}

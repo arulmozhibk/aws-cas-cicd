@@ -1,0 +1,30 @@
+{
+  "serviceName": "casapi_service",
+  "cluster": "casapi_ecs_cluster",
+  "launchType": "FARGATE",
+  "deploymentConfiguration": {
+    "maximumPercent": 200,
+    "minimumHealthyPercent": 0
+  },
+  "desiredCount": 1,
+  "networkConfiguration": {
+    "awsvpcConfiguration": {
+      "assignPublicIp": "DISABLED",
+      "securityGroups": [
+        "sg-0307e06c5c604cbb0"
+      ],
+      "subnets": [
+        "subnet-0adb9864a4b140891",
+        "subnet-0998e0ef3b37f8160"
+      ]
+    }
+  },
+  "taskDefinition": "casapi",
+  "loadBalancers": [
+    {
+      "containerName": "casapi-Service",
+      "containerPort": 8080,
+      "targetGroupArn": "arn:aws:elasticloadbalancing:ap-southeast-1:950923400513:targetgroup/casapi-TargetGroup/aecac7b671823e37"
+    }
+  ]
+}
