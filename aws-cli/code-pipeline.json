@@ -75,8 +75,8 @@
                 }
               ],
               "configuration": {
-                "ClusterName": "CasAPIService-Cluster",
-                "ServiceName": "CasAPI-Service",
+                "ClusterName": "casapi_ecs_cluster",
+                "ServiceName": "casapi_service",
                 "FileName": "imagedefinitions.json"
               }
             }

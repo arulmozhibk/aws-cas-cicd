@@ -1,0 +1,86 @@
+{
+  "TableName": "CasUserTable",
+  "ProvisionedThroughput": {
+    "ReadCapacityUnits": 2,
+    "WriteCapacityUnits": 2
+  },
+  "AttributeDefinitions": [
+    {
+      "AttributeName": "orgId",
+      "AttributeType": "S"
+    },
+    {
+      "AttributeName": "groupId",
+      "AttributeType": "S"
+    },
+    {
+      "AttributeName": "userId",
+      "AttributeType": "S"
+    },
+    {
+      "AttributeName": "name",
+      "AttributeType": "S"
+    },
+    {
+      "AttributeName": "roleId",
+      "AttributeType": "S"
+    },
+    {
+      "AttributeName": "email",
+      "AttributeType": "S"
+    }
+  ,
+    {
+      "AttributeName": "password",
+      "AttributeType": "S"
+    }
+  ],
+  "KeySchema": [
+    {
+      "AttributeName": "userId",
+      "KeyType": "HASH"
+    }
+  ],
+  "GlobalSecondaryIndexes": [
+    {
+      "IndexName": "orgIdIndex",
+      "KeySchema": [
+        {
+          "AttributeName": "orgId",
+          "KeyType": "HASH"
+        },
+        {
+          "AttributeName": "userId",
+          "KeyType": "RANGE"
+        }
+      ],
+      "Projection": {
+        "ProjectionType": "ALL"
+      },
+      "ProvisionedThroughput": {
+        "ReadCapacityUnits": 3,
+        "WriteCapacityUnits": 3
+      }
+    },
+    {
+      "IndexName": "groupIndex",
+      "KeySchema": [
+        {
+          "AttributeName": "groupId",
+          "KeyType": "HASH"
+        },
+        {
+          "AttributeName": "userId",
+          "KeyType": "RANGE"
+        }
+      ],
+      "Projection": {
+        "ProjectionType": "ALL"
+      },
+      "ProvisionedThroughput": {
+        "ReadCapacityUnits": 3,
+        "WriteCapacityUnits": 3
+      }
+    }
+  ]
+}
