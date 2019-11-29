@@ -1,0 +1,172 @@
+{
+    "CasUserTable": [{
+            "PutRequest": {
+                "Item": {
+                    "userId": {
+                        "S": "1001"
+                    },
+                    "name": {
+                        "S": "User01"
+                    },
+                    "orgId": {
+                        "S": "1"
+                    },
+                    "groupId": {
+                        "S": "SG"
+                    },
+                    "roleId": {
+                        "N": "43"
+                    },
+                    "email": {
+                        "S": "user01@gmail.com"
+                    },
+                    "password": {
+                        "S": "123"
+                    }
+
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "userId": {
+                        "S": "1001"
+                    },
+                    "name": {
+                        "S": "User01"
+                    },
+                    "orgId": {
+                        "S": "1"
+                    },
+                    "groupId": {
+                        "S": "SG"
+                    },
+                    "roleId": {
+                        "N": "43"
+                    },
+                    "email": {
+                        "S": "user01@gmail.com"
+                    },
+                    "password": {
+                        "S": "123"
+                    }
+
+                }
+            }
+        },
+        {
+
+            "PutRequest": {
+                "Item": {
+                    "userId": {
+                        "S": "1001"
+                    },
+                    "name": {
+                        "S": "User01"
+                    },
+                    "orgId": {
+                        "S": "2"
+                    },
+                    "groupId": {
+                        "S": "HK"
+                    },
+                    "roleId": {
+                        "N": "43"
+                    },
+                    "email": {
+                        "S": "user01@gmail.com"
+                    },
+                    "password": {
+                        "S": "123"
+                    }
+
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "userId": {
+                        "S": "1001"
+                    },
+                    "name": {
+                        "S": "User01"
+                    },
+                    "orgId": {
+                        "S": "2"
+                    },
+                    "groupId": {
+                        "S": "IN"
+                    },
+                    "roleId": {
+                        "N": "43"
+                    },
+                    "email": {
+                        "S": "user01@gmail.com"
+                    },
+                    "password": {
+                        "S": "123"
+                    }
+
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "userId": {
+                        "S": "1001"
+                    },
+                    "name": {
+                        "S": "User01"
+                    },
+                    "orgId": {
+                        "S": "3"
+                    },
+                    "groupId": {
+                        "S": "SG"
+                    },
+                    "roleId": {
+                        "N": "43"
+                    },
+                    "email": {
+                        "S": "user01@gmail.com"
+                    },
+                    "password": {
+                        "S": "123"
+                    }
+
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "userId": {
+                        "S": "1001"
+                    },
+                    "name": {
+                        "S": "User01"
+                    },
+                    "orgId": {
+                        "S": "4"
+                    },
+                    "groupId": {
+                        "S": "US"
+                    },
+                    "roleId": {
+                        "N": "43"
+                    },
+                    "email": {
+                        "S": "user01@gmail.com"
+                    },
+                    "password": {
+                        "S": "123"
+                    }
+
+                }
+            }
+        }
+    ]
+}

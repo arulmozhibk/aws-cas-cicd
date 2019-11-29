@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>AWS_CAS_SERVICE</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+  </head>
+  <body ng-app="awscasapp">
+    <style>
+      @media (max-width: 800px) {
+      	img {
+          max-width: 300px;
+      	}
+      }
+    </style>
+    <br>
+    <div style="text-align: center">
+      <h3>Cloud Application Service - CAS</h3>
+      <img src="https://cas-web-app.s3-ap-southeast-1.amazonaws.com/cloud1.jpg " width="400px" align="center">
+    </div>
+<!--
+    <div class="container" ng-controller="mysfitsFilterController">
+      <div id="filterMenu">
+        <ul class="nav nav-pills">
+          &nbsp;
+          <li class="nav-item dropdown" ng-repeat="filterCategory in filterOptionsList.categories">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#!" role="button" aria-haspopup="true" aria-expanded="false">{{filterCategory.title}}</a>
+            <div class="dropdown-menu" >
+              <button class="dropdown-item" ng-repeat="filterCategorySelection in filterCategory.selections" ng-click="queryMysfits(filterCategory.title, filterCategorySelection)">{{filterCategorySelection}}</button>
+            </div>
+          </li>
+          &nbsp;
+          <li class="nav-item " >
+            <button type="button" class="btn btn-success" ng-click="removeFilter()">View All</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+-->
+    <br>
+    <div class="container">
+      <div id="casGrid" class="row" ng-controller="awscasController">
+        <div class="col-md-4 border border-warning" ng-repeat="cas_user in gridScope.cas_users">
+          <br>
+          <p align="center">
+                  <strong> {{cas_user.userId}} </strong>
+            <br>
+
+          </p>
+          <p>
+            <br>
+            <b>User ID :</b> {{cas_user.name}}
+            <br>
+            <b>App ID</b> {{cas_user.appId}}
+            <br>
+            <b>Group ID :</b> {{cas_user.groupId}}
+            <br>
+            <b>Role ID :</b> {{cas_user.roleId}}
+            <br>
+            <b>Email</b> {{cas_user.email}}
+            <br>
+            <b>Password :</b> {{cas_user.password}}
+          </p>
+        </div>
+      </div>
+    </div>
+      </body>
+<script>
+  var casApiEndPoint = 'http://casapi-nlb-faf84d0ebd6ba9e7.elb.ap-southeast-1.amazonaws.com/getuserlist'; // example: 'http://mythi-publi-abcd12345-01234567890123.elb.us-east-1.amazonaws.com'
+
+  var app = angular.module('awscasapp', []);
+
+  var gridScope;
+
+  var filterScope;
+
+  /*app.controller('clearFilterController', function($scope) {
+  });*/
+
+  /*app.controller('mysfitsFilterController', function($scope) {/*
+
+  filterScope = $scope;
+
+  // The possible options for Mysfits to populate the dropdown filters.
+  $scope.filterOptionsList =
+  {
+  "categories": [
+  {
+  "title": "Good/Evil",
+  "selections":  [
+  "Good",
+  "Neutral",
+  "Evil"
+  ]
+  },
+  {
+  "title": "Lawful/Chaotic",
+  "selections":  [
+  "Lawful",
+  "Neutral",
+  "Chaotic"
+  ]
+  }
+  ]
+  };
+
+  *//*
+  The View All button has been selected, retrieve all the mysfits.
+  *//*
+  $scope.removeFilter = function() {
+  allMysfits = getAllMysfits(applyGridScope);
+  }
+
+  *//*
+  This API hasn't been implemented on the service backend yet. You will
+  implement it during module 3!
+  *//*
+  $scope.queryMysfits = function(filterCategory, filterValue) {
+
+  var filterCategoryQS = "";
+  if (filterCategory==="Good/Evil") {
+  filterCategoryQS = "GoodEvil";
+  } else {
+  filterCategoryQS = "LawChaos"
+  }
+  var mysfitsApi = casApiEndPoint + '/mysfits?' + 'filter=' + filterCategoryQS + "&value=" + filterValue;
+
+  $.ajax({
+  url : mysfitsApi,
+  type : 'GET',
+  success : function(response) {
+  applyGridScope(response.mysfits)
+  },
+  error : function(response) {
+  console.log("could not retrieve mysfits list.");
+  console.log(response.message);
+  }
+  });
+  }
+
+
+
+  });*/
+
+  /*
+  Populate the main mysfit grid on page load.
+  */
+  app.controller('awscasController', function($scope) {
+
+  gridScope = $scope;
+
+  getAllUser(gridScope);
+
+  });
+
+  /*
+  Reload the grid of mysfits whenever a new list is retrieved based
+  on the filters selected.
+  */
+  function applyGridScope(userList) {
+  gridScope.cas_users = userList;
+  gridScope.$apply();
+  }
+
+  /*
+  Retrieve the full list of mysfits from the backend service API.
+  */
+  function getAllUser(callback) {
+
+  var casApi = 'http://casapi-nlb-faf84d0ebd6ba9e7.elb.ap-southeast-1.amazonaws.com/getuserlist';
+
+  $.ajax({
+  url : casApi,
+  type : 'GET',
+  success : function(response) {
+      gridScope.cas_users =response;
+      console.log(gridScope.cas_users);
+      console.log(response);
+  //callback(response.cas_users);
+  },
+  error : function(response) {
+  console.log("could not retrieve cas_users list.!!!!");
+  console.log(response.message);
+  }
+  });
+  }
+</script>
+
+</html>

@@ -15,12 +15,24 @@ public class CasUserController {
     private CasUserService casUserService = new CasUserService();
 
     @RequestMapping(value="/getuserlist", method= RequestMethod.GET)
-    public CasUser getAllUsers(HttpServletResponse response) {
+    public CasUser getAllUsers(HttpServletResponse response,@RequestParam(value = "filter", required = false) String filter,@RequestParam(value = "value", required = false) String value) 
+    {
         response.addHeader("Access-Control-Allow-Origin", "*");
-        return casUserService.getUserList();
+        
+        CasUsers users;
+
+        if (filter != null)
+            users = CasUserService.queryUserItems(filter,value);
+        else
+            users = CasUserService.getUserList();
+
+        return users;
+        
     }
+    
+    
     @RequestMapping(value="/", method=RequestMethod.GET)
     public String healthCheckResponse() {
-        return "Nothing here, used for health check. Try /mysfits instead.";
+        return "Nothing here, used for health check. Try /getuserlist instead.";
     }
 }

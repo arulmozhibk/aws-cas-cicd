@@ -1,4 +1,9 @@
 package com.aws.cas.casapi;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
+
+@DynamoDBTable(tableName="CasUserTable")
 public class CasUser{
     private String orgId;
     private String groupId ;
@@ -10,7 +15,7 @@ public class CasUser{
 
     public CasUser() {
     }
-
+@DynamoDBAttribute(attributeName="orgId")
     public String getOrgId() {
         return orgId;
     }
@@ -18,7 +23,7 @@ public class CasUser{
     public void setOrgId(String orgId) {
         this.orgId = orgId;
     }
-
+@DynamoDBAttribute(attributeName="groupId")
     public String getGroupId() {
         return groupId;
     }
@@ -26,7 +31,7 @@ public class CasUser{
     public void setGroupId(String groupId) {
         this.groupId = groupId;
     }
-
+@DynamoDBHashKey(attributeName="userId")
     public String getUserId() {
         return userId;
     }
@@ -34,7 +39,7 @@ public class CasUser{
     public void setUserId(String userId) {
         this.userId = userId;
     }
-
+@DynamoDBAttribute(attributeName="name")
     public String getName() {
         return name;
     }
@@ -42,7 +47,7 @@ public class CasUser{
     public void setName(String name) {
         this.name = name;
     }
-
+@DynamoDBAttribute(attributeName="roleId")
     public String getRoleId() {
         return roleId;
     }
@@ -50,7 +55,7 @@ public class CasUser{
     public void setRoleId(String roleId) {
         this.roleId = roleId;
     }
-
+@DynamoDBAttribute(attributeName="email")
     public String getEmail() {
         return email;
     }
@@ -58,7 +63,7 @@ public class CasUser{
     public void setEmail(String email) {
         this.email = email;
     }
-
+@DynamoDBAttribute(attributeName="password")
     public String getPassword() {
         return password;
     }
