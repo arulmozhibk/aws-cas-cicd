@@ -23,7 +23,7 @@ phases:
       - cd casapi
       - mvn clean install
       # Go back to root folder
-      - cd ../..
+      - cd ..
       - echo Building the Docker image...
       - docker build -t casapi_ecr:latest .
       # Tag the built docker image using the appropriate Amazon ECR endpoint and relevant
