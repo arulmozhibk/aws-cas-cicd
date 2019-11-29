@@ -31,10 +31,10 @@
             "PutRequest": {
                 "Item": {
                     "userId": {
-                        "S": "1001"
+                        "S": "1002"
                     },
                     "name": {
-                        "S": "User01"
+                        "S": "User02"
                     },
                     "orgId": {
                         "S": "1"
@@ -60,10 +60,10 @@
             "PutRequest": {
                 "Item": {
                     "userId": {
-                        "S": "1001"
+                        "S": "1003"
                     },
                     "name": {
-                        "S": "User01"
+                        "S": "User03"
                     },
                     "orgId": {
                         "S": "2"
@@ -88,10 +88,10 @@
             "PutRequest": {
                 "Item": {
                     "userId": {
-                        "S": "1001"
+                        "S": "1004"
                     },
                     "name": {
-                        "S": "User01"
+                        "S": "User04"
                     },
                     "orgId": {
                         "S": "2"
@@ -116,10 +116,10 @@
             "PutRequest": {
                 "Item": {
                     "userId": {
-                        "S": "1001"
+                        "S": "1005"
                     },
                     "name": {
-                        "S": "User01"
+                        "S": "User05"
                     },
                     "orgId": {
                         "S": "3"
@@ -144,10 +144,10 @@
             "PutRequest": {
                 "Item": {
                     "userId": {
-                        "S": "1001"
+                        "S": "1006"
                     },
                     "name": {
-                        "S": "User01"
+                        "S": "User06"
                     },
                     "orgId": {
                         "S": "4"

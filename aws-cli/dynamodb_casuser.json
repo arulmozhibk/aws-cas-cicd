@@ -16,23 +16,6 @@
     {
       "AttributeName": "userId",
       "AttributeType": "S"
-    },
-    {
-      "AttributeName": "name",
-      "AttributeType": "S"
-    },
-    {
-      "AttributeName": "roleId",
-      "AttributeType": "S"
-    },
-    {
-      "AttributeName": "email",
-      "AttributeType": "S"
-    }
-  ,
-    {
-      "AttributeName": "password",
-      "AttributeType": "S"
     }
   ],
   "KeySchema": [

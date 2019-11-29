@@ -1,0 +1,88 @@
+{
+    "TableDescription": {
+        "TableArn": "arn:aws:dynamodb:ap-southeast-1:950923400513:table/CasUserTable", 
+        "AttributeDefinitions": [
+            {
+                "AttributeName": "groupId", 
+                "AttributeType": "S"
+            }, 
+            {
+                "AttributeName": "orgId", 
+                "AttributeType": "S"
+            }, 
+            {
+                "AttributeName": "userId", 
+                "AttributeType": "S"
+            }
+        ], 
+        "GlobalSecondaryIndexes": [
+            {
+                "IndexSizeBytes": 0, 
+                "IndexName": "groupIndex", 
+                "Projection": {
+                    "ProjectionType": "ALL"
+                }, 
+                "ProvisionedThroughput": {
+                    "NumberOfDecreasesToday": 0, 
+                    "WriteCapacityUnits": 3, 
+                    "ReadCapacityUnits": 3
+                }, 
+                "IndexStatus": "CREATING", 
+                "KeySchema": [
+                    {
+                        "KeyType": "HASH", 
+                        "AttributeName": "groupId"
+                    }, 
+                    {
+                        "KeyType": "RANGE", 
+                        "AttributeName": "userId"
+                    }
+                ], 
+                "IndexArn": "arn:aws:dynamodb:ap-southeast-1:950923400513:table/CasUserTable/index/groupIndex", 
+                "ItemCount": 0
+            }, 
+            {
+                "IndexSizeBytes": 0, 
+                "IndexName": "orgIdIndex", 
+                "Projection": {
+                    "ProjectionType": "ALL"
+                }, 
+                "ProvisionedThroughput": {
+                    "NumberOfDecreasesToday": 0, 
+                    "WriteCapacityUnits": 3, 
+                    "ReadCapacityUnits": 3
+                }, 
+                "IndexStatus": "CREATING", 
+                "KeySchema": [
+                    {
+                        "KeyType": "HASH", 
+                        "AttributeName": "orgId"
+                    }, 
+                    {
+                        "KeyType": "RANGE", 
+                        "AttributeName": "userId"
+                    }
+                ], 
+                "IndexArn": "arn:aws:dynamodb:ap-southeast-1:950923400513:table/CasUserTable/index/orgIdIndex", 
+                "ItemCount": 0
+            }
+        ], 
+        "ProvisionedThroughput": {
+            "NumberOfDecreasesToday": 0, 
+            "WriteCapacityUnits": 2, 
+            "ReadCapacityUnits": 2
+        }, 
+        "TableSizeBytes": 0, 
+        "TableName": "CasUserTable", 
+        "TableStatus": "CREATING", 
+        "TableId": "65ac6dfc-d376-473e-862f-a4891e6cef4a", 
+        "KeySchema": [
+            {
+                "KeyType": "HASH", 
+                "AttributeName": "userId"
+            }
+        ], 
+        "ItemCount": 0, 
+        "CreationDateTime": 1575008151.767
+    }
+}
