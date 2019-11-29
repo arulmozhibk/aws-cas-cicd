@@ -12,6 +12,8 @@ public class CasUser{
     private String email   ;
     private String password;
     private String roleId  ;
+    
+    
 
     @DynamoDBAttribute(attributeName="orgId")
     public String getOrgId() {

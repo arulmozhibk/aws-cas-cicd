@@ -34,7 +34,7 @@ public class CasUserService{
         
                 String indexPref="orgId";
         if((filter.equalsIgnoreCase( "SG" )) || (filter.equalsIgnoreCase( "HK" ))|| (filter.equalsIgnoreCase( "IN" ) )){
-            indexPref="groupId";
+            indexPref="group";
         }
         
         DynamoDBQueryExpression<CasUser> queryExpression = new DynamoDBQueryExpression<CasUser>()
