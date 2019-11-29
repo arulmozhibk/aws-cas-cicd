@@ -15,7 +15,7 @@
                         "S": "SG"
                     },
                     "roleId": {
-                        "N": "43"
+                        "S": "43"
                     },
                     "email": {
                         "S": "user01@gmail.com"
@@ -43,7 +43,7 @@
                         "S": "SG"
                     },
                     "roleId": {
-                        "N": "43"
+                        "S": "43"
                     },
                     "email": {
                         "S": "user01@gmail.com"
@@ -72,7 +72,7 @@
                         "S": "HK"
                     },
                     "roleId": {
-                        "N": "43"
+                        "S": "43"
                     },
                     "email": {
                         "S": "user01@gmail.com"
@@ -100,7 +100,7 @@
                         "S": "IN"
                     },
                     "roleId": {
-                        "N": "43"
+                        "S": "43"
                     },
                     "email": {
                         "S": "user01@gmail.com"
@@ -128,7 +128,7 @@
                         "S": "SG"
                     },
                     "roleId": {
-                        "N": "43"
+                        "S": "43"
                     },
                     "email": {
                         "S": "user01@gmail.com"
@@ -156,7 +156,7 @@
                         "S": "US"
                     },
                     "roleId": {
-                        "N": "43"
+                        "S": "43"
                     },
                     "email": {
                         "S": "user01@gmail.com"

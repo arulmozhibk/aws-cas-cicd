@@ -9,9 +9,9 @@ public class CasUser{
     private String groupId ;
     private String userId  ;
     private String name    ;
-    private String roleId  ;
     private String email   ;
     private String password;
+    private String roleId  ;
 
     @DynamoDBAttribute(attributeName="orgId")
     public String getOrgId() {
@@ -45,14 +45,6 @@ public class CasUser{
     public void setName(String name) {
         this.name = name;
     }
-@DynamoDBAttribute(attributeName="roleId")
-    public String getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(String roleId) {
-        this.roleId = roleId;
-    }
 @DynamoDBAttribute(attributeName="email")
     public String getEmail() {
         return email;
@@ -70,6 +62,15 @@ public class CasUser{
         this.password = password;
     }
 
+
+@DynamoDBAttribute(attributeName="roleId")
+    public String getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(String roleId) {
+        this.roleId = roleId;
+    }
     @java.lang.Override
     public java.lang.String toString() {
         return "CasUser{" +
