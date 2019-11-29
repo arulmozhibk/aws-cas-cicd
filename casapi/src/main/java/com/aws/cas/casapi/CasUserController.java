@@ -3,6 +3,7 @@ package com.aws.cas.casapi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
@@ -15,16 +16,16 @@ public class CasUserController {
     private CasUserService casUserService = new CasUserService();
 
     @RequestMapping(value="/getuserlist", method= RequestMethod.GET)
-    public CasUser getAllUsers(HttpServletResponse response,@RequestParam(value = "filter", required = false) String filter,@RequestParam(value = "value", required = false) String value) 
+    public CasUsers getAllUsers(HttpServletResponse response, @RequestParam(value = "filter", required = false) String filter, @RequestParam(value = "value", required = false) String value)
     {
         response.addHeader("Access-Control-Allow-Origin", "*");
         
         CasUsers users;
 
         if (filter != null)
-            users = CasUserService.queryUserItems(filter,value);
+            users = casUserService.queryUserItems(filter,value);
         else
-            users = CasUserService.getUserList();
+            users = casUserService.getUserList();
 
         return users;
         

@@ -14,17 +14,6 @@
 	<name>casapi</name>
 	<description>project for Spring Boot in AWS</description>
 
-	<properties>
-		<java.version>1.8</java.version>
-	</properties>
-
-
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.0.4.RELEASE</version>
-    </parent>
-
     <dependencyManagement>
         <dependencies>
             <dependency>

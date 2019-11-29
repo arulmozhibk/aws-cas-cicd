@@ -22,9 +22,9 @@ public class CasUserService{
     public CasUsers getUserList() {
 
         List<CasUser> userlist = mapper.scan(CasUser.class, new DynamoDBScanExpression());
-        CasUsers allusers = new CasUsers(userlist);
+        CasUsers alluser = new CasUsers(userlist);
 
-        return allusers;
+        return alluser;
     }
 
     public CasUsers queryUserItems(String filter, String value) {
@@ -39,8 +39,8 @@ public class CasUserService{
                 .withConsistentRead(false);
 
         List<CasUser> users = mapper.query(CasUser.class, queryExpression);
-        CasUsers allusers = new Mysfits(users);
+        CasUsers alluserslist = new CasUsers(users);
 
-        return allusers;
+        return alluserslist;
     }
 }
