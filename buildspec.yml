@@ -44,4 +44,4 @@ phases:
 artifacts:
   # Indicate that the created imagedefinitions.json file created on the previous
   # line is to be referenceable as an artifact of the build execution job.
-  files: imagedefinitions.json$
+  files: imagedefinitions.json
