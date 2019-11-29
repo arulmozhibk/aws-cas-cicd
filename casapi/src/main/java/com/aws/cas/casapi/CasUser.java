@@ -13,9 +13,7 @@ public class CasUser{
     private String email   ;
     private String password;
 
-    public CasUser() {
-    }
-@DynamoDBAttribute(attributeName="orgId")
+    @DynamoDBAttribute(attributeName="orgId")
     public String getOrgId() {
         return orgId;
     }
