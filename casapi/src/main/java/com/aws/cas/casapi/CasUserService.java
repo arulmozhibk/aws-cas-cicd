@@ -31,10 +31,15 @@ public class CasUserService{
 
         HashMap<String, AttributeValue> attribValue = new HashMap<String, AttributeValue>();
         attribValue.put(":"+value,  new AttributeValue().withS(value));
-
+        
+                String indexPref="orgId";
+        if((filter.equalsIgnoreCase( "SG" )) || (filter.equalsIgnoreCase( "HK" ))|| (filter.equalsIgnoreCase( "IN" ) )){
+            indexPref="groupId";
+        }
+        
         DynamoDBQueryExpression<CasUser> queryExpression = new DynamoDBQueryExpression<CasUser>()
-                .withIndexName(filter+"Index")
-                .withKeyConditionExpression(filter + "= :" + value)
+                .withIndexName(indexPref+"Index")
+                .withKeyConditionExpression(indexPref + "= :" + value)
                 .withExpressionAttributeValues(attribValue)
                 .withConsistentRead(false);
 
