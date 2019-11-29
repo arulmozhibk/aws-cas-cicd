@@ -18,8 +18,9 @@ phases:
     commands:
       - echo Build started on `date`
       - echo Building the jar
+      - pwd
       # Go to build dir for the java project
-      - cd module-2/casapi/
+      - cd casapi
       - mvn clean install
       # Go back to root folder
       - cd ../..
