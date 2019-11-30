@@ -1,0 +1,23 @@
+{
+    "TargetGroups": [
+        {
+            "HealthCheckPath": "/", 
+            "HealthCheckIntervalSeconds": 10, 
+            "VpcId": "vpc-009ac39d05298ce98", 
+            "Protocol": "TCP", 
+            "HealthCheckTimeoutSeconds": 6, 
+            "TargetType": "ip", 
+            "HealthCheckProtocol": "HTTP", 
+            "Matcher": {
+                "HttpCode": "200-399"
+            }, 
+            "UnhealthyThresholdCount": 3, 
+            "HealthyThresholdCount": 3, 
+            "TargetGroupArn": "arn:aws:elasticloadbalancing:ap-southeast-1:950923400513:targetgroup/casapi-TargetGroup/aecac7b671823e37", 
+            "HealthCheckEnabled": true, 
+            "HealthCheckPort": "traffic-port", 
+            "Port": 8080, 
+            "TargetGroupName": "casapi-TargetGroup"
+        }
+    ]
+}

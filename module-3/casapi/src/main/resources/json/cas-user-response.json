@@ -1,0 +1,9 @@
+{
+  "orgId":"aws_cas_01",
+  "groupId":"SG",
+  "userId":"USER_01",
+  "name":"Test01",
+  "roleId":"3000",
+  "email":"test01@gmail.com",
+  "password":"automation"
+}

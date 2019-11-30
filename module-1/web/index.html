@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>AWS_CAS</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+  </head>
+  <body ng-app="awscasapp">
+    <style>
+      @media (max-width: 800px) {
+      	img {
+          max-width: 300px;
+      	}
+      }
+    </style>
+    <br>
+    <div style="text-align: center">
+      <h3>Cloud Application Service(CAS)</h3>
+      <img src="https://cas-web-app.s3-ap-southeast-1.amazonaws.com/cloud1.jpg " width="400px" align="center">
+    </div>
+    <div class="container">
+      <div id="casGrid" class="row" ng-controller="awscasController">
+          <div class="col-md-4 border border-warning" ng-repeat="cas_user in cas_users">
+              <br>
+              <p align="center">
+                <strong> {{cas_user.userId}}</strong>
+                <br>
+
+              </p>
+              <p>
+                <br>
+                <b>User ID :</b> {{cas_user.name}}
+                <br>
+                <b>App ID</b> {{cas_user.appId}}
+                <br>
+                <b>Group ID :</b> {{cas_user.groupId}}
+                <br>
+                <b>Role ID :</b> {{cas_user.roleId}}
+                <br>
+                  <b>Email</b> {{cas_user.email}}
+                <br>
+                   <b>Password :</b> {{cas_user.password}}
+                 </p>
+          </div>
+        </div>
+      </div>
+      </body>
+  <script>
+
+    var app = angular.module('awscasapp', []);
+
+    var gridScope;
+
+    app.controller('awscasController', function($scope) {
+
+      // the list of users to be displayed on the aws_cas website.
+      $scope.cas_users =
+        [
+          {
+            "appId":"aws_cas",
+             "groupId":"SG",
+             "userId":"USER_01",
+             "name":"Test01",
+             "roleId":"3000",
+             "email":"test01@gmail.com",
+             "password":"password",
+          },
+          {
+              "appId":"aws_cas",
+               "groupId":"SG",
+               "userId":"USER_02",
+               "name":"Test02",
+               "roleId":"3000",
+               "email":"test02@gmail.com",
+               "password":"password",
+
+       },
+          {
+               "appId":"aws_cas",
+                "groupId":"SG",
+                "userId":"USER_03",
+                "name":"Test03",
+                "roleId":"3000",
+                "email":"test03@gmail.com",
+                "password":"password",
+
+            }
+        ]
+    });
+
+
+  </script>
+</html>

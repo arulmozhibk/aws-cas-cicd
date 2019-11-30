@@ -1,0 +1,15 @@
+{
+  "Id": "Policy1574785122480",
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "Stmt1574785113896",
+      "Action": [
+        "s3:GetObject"
+      ],
+      "Effect": "Allow",
+      "Resource": "arn:aws:s3:::cas-web-app/*",
+      "Principal": "*"
+    }
+  ]
+}

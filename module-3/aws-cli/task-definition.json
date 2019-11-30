@@ -1,0 +1,32 @@
+{
+  "family": "casapi",
+  "cpu": "256",
+  "memory": "512",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
+  "executionRoleArn": "arn:aws:iam::950923400513:role/CasAPICoreStack-EcsServiceRole-1MFBETFCZG85U",
+  "taskRoleArn": "arn:aws:iam::950923400513:role/CasAPICoreStack-ECSTaskRole-HAHRM62I6RRI",
+  "containerDefinitions": [
+    {
+      "name": "casapi-Service",
+      "image": "950923400513.dkr.ecr.ap-southeast-1.amazonaws.com/casapi_ecr",
+      "portMappings": [
+        {
+          "containerPort": 8080,
+          "protocol": "http"
+        }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "casapi-logs",
+          "awslogs-region": "ap-southeast-1",
+          "awslogs-stream-prefix": "awslogs-casapi-service"
+        }
+      },
+      "essential": true
+    }
+  ]
+}

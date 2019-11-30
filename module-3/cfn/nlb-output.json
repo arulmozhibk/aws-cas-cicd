@@ -1,0 +1,30 @@
+{
+    "LoadBalancers": [
+        {
+            "IpAddressType": "ipv4", 
+            "VpcId": "vpc-009ac39d05298ce98", 
+            "LoadBalancerArn": "arn:aws:elasticloadbalancing:ap-southeast-1:950923400513:loadbalancer/net/casapi-nlb/faf84d0ebd6ba9e7", 
+            "State": {
+                "Code": "provisioning"
+            }, 
+            "DNSName": "casapi-nlb-faf84d0ebd6ba9e7.elb.ap-southeast-1.amazonaws.com", 
+            "LoadBalancerName": "casapi-nlb", 
+            "CreatedTime": "2019-11-28T07:34:13.364Z", 
+            "Scheme": "internet-facing", 
+            "Type": "network", 
+            "CanonicalHostedZoneId": "ZKVM4W9LS7TM", 
+            "AvailabilityZones": [
+                {
+                    "SubnetId": "subnet-0f4d3b054d0158db8", 
+                    "LoadBalancerAddresses": [], 
+                    "ZoneName": "ap-southeast-1b"
+                }, 
+                {
+                    "SubnetId": "subnet-0044638267069755d", 
+                    "LoadBalancerAddresses": [], 
+                    "ZoneName": "ap-southeast-1a"
+                }
+            ]
+        }
+    ]
+}
