@@ -1,20 +1,195 @@
-Creating a Static Website in Amazon S3
+1. Creating a Static Website in Amazon S3(Module-1)
 Create an S3 Bucket
 aws s3 ls
 aws s3 mb s3://cas-web-app
 aws s3 ls
+
 
 Upload the Website Content to your S3 Bucket
 aws s3 cp ./src/module-1/web/index.html s3://cas-web-app/index.html
 aws s3 ls s3://cas-web-app
 curl -i "https://cas-web-app.s3-$(aws configure get region).amazonaws.com/index.html" ---->>>> Access Denied
 
+
 Update the S3 Bucket Policy
 aws s3 cp ./src/module-1/web/cloud1.jpg s3://cas-web-app/cloud1.jpg
 aws s3api put-bucket-policy --bucket cas-web-app --policy file://src/module-1/aws-cli/website_bucket_policy_s3.json --->>>file:// is imp to mention
 
+
 Configure website Hosting
 aws s3 website s3://cas-web-app/ --index-document index.html
 
+
 verify
 curl -i "https://cas-web-app.s3-$(aws configure get region).amazonaws.com"
+
+
+
+2. Creating a Service with AWS Fargate(Module-2)
+
+Creating the Core Infrastructure using AWS CloudFormation
+
+aws cloudformation create-stack --stack-name CasAPICoreStack --capabilities CAPABILITY_NAMED_IAM --template-body file://aws_cas_app/src/module-2/cfn/core.yml
+
+aws cloudformation describe-stacks --stack-name CasAPICoreStack > ~/environment/cloudformation-core-output.json
+
+aws cloudformation wait stack-create-complete --stack-name CasAPICoreStack && echo "stack created"
+
+
+
+Deploying a Service with AWS Fargate
+Building A Docker Image
+
+Update Java to OpenJDK 1.8
+
+sudo yum -y install java-1.8.0-openjdk-devel
+sudo alternatives --set java /usr/lib/jvm/java-1.8.0-openjdk.x86_64/bin/java
+sudo alternatives --set javac /usr/lib/jvm/java-1.8.0-openjdk.x86_64/bin/javac
+
+Install Apache Maven
+sudo wget http://repos.fedorapeople.org/repos/dchen/apache-maven/epel-apache-maven.repo -O /etc/yum.repos.d/epel-apache-maven.repo
+sudo sed -i s/\$releasever/6/g /etc/yum.repos.d/epel-apache-maven.repo
+sudo yum install -y apache-maven
+
+Build the application at ~/environment/module-2/app/service
+cd ~/environment/aws_cas_app/src/module-2/casapi/
+mvn clean install
+
+aws sts get-caller-identity
+cd ..
+docker build . -t 950923400513.dkr.ecr.ap-southeast-1.amazonaws.com/casapi_ecr:latest
+(Successfully built 6706e5dae996)
+(Successfully tagged 950923400513.dkr.ecr.ap-southeast-1.amazonaws.com/casapi_ecr:latest)
+
+Testing the Service Locally
+docker run -p 8080:8080 950923400513.dkr.ecr.ap-southeast-1.amazonaws.com/casapi_ecr:latest(code running at http://3c3d71d478194887b46c0a4e3c1075f3.vfs.cloud9.ap-southeast-1.amazonaws.com/getuserlist/)
+
+
+Creating ECR repository and Pushing the Docker Image to Amazon ECR
+aws ecr create-repository --repository-name casapi_ecr        ------(950923400513.dkr.ecr.ap-southeast-1.amazonaws.com/casapi_ecr ---->>>> arn:aws:ecr:ap-southeast-1:950923400513:repository/casapi_ecr)
+
+$(aws ecr get-login --no-include-email) ---> to login into ecr
+
+docker push 950923400513.dkr.ecr.ap-southeast-1.amazonaws.com/casapi_ecr
+
+aws ecr describe-images --repository-name casapi_ecr
+
+
+
+Configuring the Service Prerequisites in Amazon ECS(To host the application in cloud and expose publicly using ECS Fargate, cloud9 hosted application is local one)
+Create an ECS Cluster
+aws ecs create-cluster --cluster-name casapi_ecs_cluster --->(arn:aws:ecs:ap-southeast-1:950923400513:cluster/casapi_ecs_cluster)
+
+Create an AWS CloudWatch Logs Group(This is especially important when using AWS Fargate since you will not have access to the server infrastructure where your containers are running)
+aws logs create-log-group --log-group-name casapi-logs
+
+Register an ECS Task Definition(A task definition declares that set of containers and the resources and configuration those containers require.)
+awsdev1:~/environment/aws_cas_app/src/module-2 (master) $ aws ecs register-task-definition --cli-input-json file://aws-cli/task-definition.json ---------->>>>>>>(arn:aws:ecs:ap-southeast-1:950923400513:task-definition/casapi:1", 
+        "containerDefinitions)
+
+		
+Enabling a Load Balanced Fargate Service
+Create a Network Load Balancer
+aws elbv2 create-load-balancer --name casapi-nlb --scheme internet-facing --type network --subnets subnet-0044638267069755d subnet-0f4d3b054d0158db8 > cfn/nlb-output.json
+
+Create a Load Balancer Target Group(A target group allows AWS resources to register themselves as targets for requests that the load balancer receives to forward.)
+aws elbv2 create-target-group --name casapi-TargetGroup --port 8080 --protocol TCP --target-type ip --vpc-id vpc-009ac39d05298ce98 --health-check-interval-seconds 10 --health-check-path / --health-check-protocol HTTP --healthy-threshold-count 3 --unhealthy-threshold-count 3 > cfn/opn
+
+Create a Load Balancer Listener(This informs that load balancer that for requests received on a specific port, they should be forwarded to targets that have registered to the above target group ----> listener arn arn:aws:elasticloadbalancing:ap-southeast-1:950923400513:listener/net/casapi-nlb/faf84d0ebd6ba9e7/28e5e39699352349)
+aws elbv2 create-listener --default-actions TargetGroupArn=arn:aws:elasticloadbalancing:ap-southeast-1:950923400513:targetgroup/casapi-TargetGroup/aecac7b671823e37,Type=forward --load-balancer-arn arn:aws:elasticloadbalancing:ap-southeast-1:950923400513:loadbalancer/net/casapi-nlb/faf84d0ebd6ba9e7 --port 80 --protocol TCP
+
+
+Creating a Service with Fargate
+Creating a Service Linked Role for ECS(This is required because when you create a service in ECS, the service will call APIs within your account to perform actions like pulling docker images, creating new tasks, etc.)
+aws iam create-service-linked-role --aws-service-name ecs.amazonaws.com(Already created in my account)
+
+Create the Service(With the NLB created and configured, and the ECS service granted appropriate permissions, we're ready to create the actual ECS service where our containers will run and register themselves to the load balancer to receive traffic. )
+ aws ecs create-service --cli-input-json file://aws-cli/service-definition.json > cfn/service-definition-output.json
+ 
+Test the Service using nlb url as it deployed to cloud
+http://casapi-nlb-faf84d0ebd6ba9e7.elb.ap-southeast-1.amazonaws.com(working fine while the application is running)
+
+
+Automating Deployments using AWS Code Services
+Create a S3 Bucket for Pipeline Artifacts
+ aws s3 mb s3://cas-cicd
+ 
+Create a S3 Bucket for Pipeline Artifacts 
+aws s3api put-bucket-policy --bucket cas-cicd --policy file://aws_cas_app/src/module-2/aws-cli/artifacts-bucket-policy.json 
+
+Create a CodeCommit Repository
+aws codecommit create-repository --repository-name cas-cicd-repo
+
+Create a CodeBuild Project
+aws codebuild create-project --cli-input-json file://aws_cas_app/src/module-2/aws-cli/code-build-project.json 
+
+Create a CodePipeline Pipeline
+aws codepipeline create-pipeline --cli-input-json file://aws_cas_app/src/cas-cicd-repo/module-2/aws-cli/code-pipeline.json
+if want to delete(aws codepipeline delete-pipeline --name CasAPIServiceCICDPipeline)
+
+Enable Automated Access to ECR Image Repository
+aws ecr set-repository-policy --repository-name casapi_ecr --policy-text file://aws_cas_app/src/module-2/aws-cli/ecr-policy.json 
+
+Test the CI/CD Pipeline
+Using Git with AWS CodeCommit
+awsdev1:~/environment $ git config --global user.name ""
+awsdev1:~/environment $ git config --global user.email ""                                                                                                                                                                   
+awsdev1:~/environment $ git config --global credential.helper ''
+awsdev1:~/environment $ git config --global credential.UseHttpPath true
+awsdev1:~/environment $ git clone https://git-codecommit.ap-southeast-1.amazonaws.com/v1/repos/cas-cicd-repo
+cp -r module-2/ cas-cicd-repo/
+
+Pushing a Code Change
+ d cas-cicd-repo/
+git add .
+git commit -m "I changed the age of one of the mysfits."
+git push
+
+
+
+Module-3 Adding a NoSQL Database to CAS Service
+Create a DynamoDB Table
+
+awsdev1:~/environment/cas-cicd-repo (master) $ aws dynamodb create-table --cli-input-json file://aws-cli/dynamodb_casuser.json                                                                                          
+
+				An error occurred (ValidationException) when calling the CreateTable operation: One or more parameter values were invalid: Some AttributeDefinitions are not used. AttributeDefinitions: [password, roleId, groupId, name, userId, orgId, email], keys used: [groupId, userId, orgId]
+
+deleted  non-used attributes(Non-key)  except keys used: [groupId, userId, orgId]
+awsdev1:~/environment/cas-cicd-repo (master) $ aws dynamodb create-table --cli-input-json file://aws-cli/dynamodb_casuser.json 
+    aws dynamodb describe-table --table-name CasUserTable
+    aws dynamodb scan --table-name CasUserTable
+	
+Add Items to the DynamoDB Table
+awsdev1:~/environment/cas-cicd-repo (master) $ aws dynamodb batch-write-item --request-items file://aws-cli/populate-dynamodb.json                                                                                      
+
+An error occurred (ValidationException) when calling the BatchWriteItem operation: Provided list of item keys contains duplicates
+awsdev1:~/environment/cas-cicd-repo (master) $ aws dynamodb batch-write-item --request-items file://aws-cli/populate-dynamodb.json (succeed) 
+
+git commit and push
+
+
+
+
+
+Module-4 Adding User and API features with Amazon API Gateway and AWS Cognito
+Adding a User Pool for Website Users
+Create the Cognito User Pool
+ aws cognito-idp create-user-pool --pool-name CasUserPool --auto-verified-attributes email
+("Id": "ap-southeast-1_yBFMIkWCs", 
+        "Arn": "arn:aws:cognito-idp:ap-southeast-1:950923400513:userpool/ap-southeast-1_yBFMIkWCs")
+		
+Create a Cognito User Pool Client
+aws cognito-idp create-user-pool-client --user-pool-id ap-southeast-1_yBFMIkWCs --client-name CasUserPoolClient
+
+Adding a new REST API with Amazon API Gateway
+Create an API Gateway VPC Link
+aws apigateway create-vpc-link --name CasApiVpcLink --target-arns arn:aws:elasticloadbalancing:ap-southeast-1:950923400513:loadbalancer/net/casapi-nlb/faf84d0ebd6ba9e7 > ~/environment/api-gateway-link-output.json
+
+Create the REST API using Swagger
+aws apigateway import-rest-api --body file://aws-cli/api-swagger.json --fail-on-warnings
+
+Deploy the API
+aws apigateway create-deployment --rest-api-id REPLACE_ME_WITH_API_ID --stage-name prod
+
+https://REPLACE_ME_WITH_API_ID.execute-api.REPLACE_ME_WITH_REGION.amazonaws.com/prod
+
