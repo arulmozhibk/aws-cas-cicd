@@ -1,0 +1,8 @@
+{
+    "status": "PENDING", 
+    "targetArns": [
+        "arn:aws:elasticloadbalancing:ap-southeast-1:950923400513:loadbalancer/net/casapi-nlb/faf84d0ebd6ba9e7"
+    ], 
+    "id": "d9kefv", 
+    "name": "CasApiVpcLink"
+}

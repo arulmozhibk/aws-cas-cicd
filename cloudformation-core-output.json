@@ -1,0 +1,96 @@
+{
+    "Stacks": [
+        {
+            "StackId": "arn:aws:cloudformation:ap-southeast-1:950923400513:stack/CasAPICoreStack/ce3fe1b0-118f-11ea-9c5e-0ad08b3552b8", 
+            "DriftInformation": {
+                "StackDriftStatus": "NOT_CHECKED"
+            }, 
+            "Description": "This stack deploys the core network infrastructure and IAM resources to be used for a service hosted in Amazon ECS using AWS Fargate.", 
+            "Tags": [], 
+            "Outputs": [
+                {
+                    "Description": "CAS_WEB_APP_ACCOUNT_ID", 
+                    "ExportName": "CasAPICoreStack:CurrentAccount", 
+                    "OutputKey": "CurrentAccount", 
+                    "OutputValue": "950923400513"
+                }, 
+                {
+                    "Description": "CAS_WEB_APP_SECURITY_GROUP_ID", 
+                    "ExportName": "CasAPICoreStack:FargateContainerSecurityGroup", 
+                    "OutputKey": "FargateContainerSecurityGroup", 
+                    "OutputValue": "sg-0307e06c5c604cbb0"
+                }, 
+                {
+                    "Description": "CAS_WEB_APP_PUBLIC_SUBNET_ONE", 
+                    "ExportName": "CasAPICoreStack:PublicSubnetOne", 
+                    "OutputKey": "PublicSubnetOne", 
+                    "OutputValue": "subnet-0044638267069755d"
+                }, 
+                {
+                    "Description": "CAS_WEB_APP_ECS_TASK_ROLE_ARN", 
+                    "ExportName": "CasAPICoreStack:ECSTaskRole", 
+                    "OutputKey": "ECSTaskRole", 
+                    "OutputValue": "arn:aws:iam::950923400513:role/CasAPICoreStack-ECSTaskRole-HAHRM62I6RRI"
+                }, 
+                {
+                    "Description": "CAS_WEB_APP_PRIVATE_SUBNET_TWO", 
+                    "ExportName": "CasAPICoreStack:PrivateSubnetTwo", 
+                    "OutputKey": "PrivateSubnetTwo", 
+                    "OutputValue": "subnet-0998e0ef3b37f8160"
+                }, 
+                {
+                    "Description": "CAS_WEB_APP_REGION", 
+                    "ExportName": "CasAPICoreStack:CurrentRegion", 
+                    "OutputKey": "CurrentRegion", 
+                    "OutputValue": "ap-southeast-1"
+                }, 
+                {
+                    "Description": "CAS_WEB_APP_VPC_ID", 
+                    "ExportName": "CasAPICoreStack:VPCId", 
+                    "OutputKey": "VPCId", 
+                    "OutputValue": "vpc-009ac39d05298ce98"
+                }, 
+                {
+                    "Description": "CAS_WEB_APP_PUBLIC_SUBNET_TWO", 
+                    "ExportName": "CasAPICoreStack:PublicSubnetTwo", 
+                    "OutputKey": "PublicSubnetTwo", 
+                    "OutputValue": "subnet-0f4d3b054d0158db8"
+                }, 
+                {
+                    "Description": "CAS_WEB_APP_CODEBUILD_ROLE_ARN", 
+                    "ExportName": "CasAPICoreStack:CasServiceCodeBuildServiceRole", 
+                    "OutputKey": "CodeBuildRole", 
+                    "OutputValue": "arn:aws:iam::950923400513:role/CasServiceCodeBuildServiceRole"
+                }, 
+                {
+                    "Description": "CAS_WEB_APP_CODEPIPELINE_ROLE_ARN", 
+                    "ExportName": "CasAPICoreStack:CasServiceCodePipelineServiceRole", 
+                    "OutputKey": "CodePipelineRole", 
+                    "OutputValue": "arn:aws:iam::950923400513:role/CasServiceCodePipelineServiceRole"
+                }, 
+                {
+                    "Description": "CAS_WEB_APP_ECS_SERVICE_ROLE_ARN", 
+                    "ExportName": "CasAPICoreStack:EcsServiceRole", 
+                    "OutputKey": "EcsServiceRole", 
+                    "OutputValue": "arn:aws:iam::950923400513:role/CasAPICoreStack-EcsServiceRole-1MFBETFCZG85U"
+                }, 
+                {
+                    "Description": "CAS_WEB_APP_PRIVATE_SUBNET_ONE", 
+                    "ExportName": "CasAPICoreStack:PrivateSubnetOne", 
+                    "OutputKey": "PrivateSubnetOne", 
+                    "OutputValue": "subnet-0adb9864a4b140891"
+                }
+            ], 
+            "EnableTerminationProtection": false, 
+            "CreationTime": "2019-11-28T03:33:12.959Z", 
+            "Capabilities": [
+                "CAPABILITY_NAMED_IAM"
+            ], 
+            "StackName": "CasAPICoreStack", 
+            "NotificationARNs": [], 
+            "StackStatus": "CREATE_COMPLETE", 
+            "DisableRollback": false, 
+            "RollbackConfiguration": {}
+        }
+    ]
+}
